@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>지수와 로그 | IB SL Mathematics</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js"></script>
+<style>
+  :root {
+    --ink: #1a1008;
+    --paper: #faf7f2;
+    --red: #c0392b;
+    --gold: #b8860b;
+    --blue: #1a3a5c;
+    --light-blue: #e8f0f8;
+    --light-red: #fdf0ee;
+    --border: #d4c9b0;
+    --gray: #6b6355;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Noto Sans KR', sans-serif; font-size: 16px; line-height: 1.7; }
+
+  #progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--red); width: 0%; transition: width 0.2s; z-index: 1000; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; background: rgba(250,247,242,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); padding: 10px 32px; display: flex; justify-content: space-between; align-items: center; z-index: 100; }
+  .nav-title { font-family: 'Noto Serif KR', serif; font-weight: 700; font-size: 14px; color: var(--blue); }
+  .nav-links { display: flex; gap: 20px; list-style: none; }
+  .nav-links a { font-size: 12px; color: var(--gray); text-decoration: none; letter-spacing: 0.06em; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--red); }
+
+  section { min-height: 100vh; padding: 100px 0 80px; display: flex; align-items: flex-start; justify-content: center; }
+  .container { width: 100%; max-width: 860px; padding: 0 32px; }
+
+  /* TITLE */
+  #title { background: var(--blue); color: white; align-items: center; overflow: hidden; position: relative; }
+  #title::before { content: ''; position: absolute; top: -120px; right: -120px; width: 480px; height: 480px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+  .title-badge { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.2); padding: 6px 14px; border-radius: 2px; display: inline-block; margin-bottom: 28px; }
+  .title-main { font-family: 'Noto Serif KR', serif; font-size: clamp(44px,7vw,72px); font-weight: 900; line-height: 1.1; color: white; margin-bottom: 14px; }
+  .title-sub { font-size: 17px; color: rgba(255,255,255,0.55); margin-bottom: 44px; font-weight: 300; }
+  .topic-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; max-width: 500px; }
+  .topic-item { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 4px; padding: 12px 16px; font-size: 13px; color: rgba(255,255,255,0.82); display: flex; align-items: center; gap: 10px; }
+  .topic-item .num { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: rgba(255,255,255,0.35); }
+
+  /* SECTION HEADERS */
+  .section-label { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--red); margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+  .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+  .section-title { font-family: 'Noto Serif KR', serif; font-size: clamp(28px,4vw,40px); font-weight: 900; line-height: 1.2; color: var(--ink); margin-bottom: 6px; }
+  .section-desc { font-size: 14px; color: var(--gray); margin-bottom: 36px; font-weight: 300; }
+
+  /* BOXES */
+  .concept-box { background: white; border: 1px solid var(--border); border-left: 4px solid var(--blue); border-radius: 0 8px 8px 0; padding: 18px 22px; margin: 18px 0; }
+  .concept-box.red { border-left-color: var(--red); }
+  .concept-box.gold { border-left-color: var(--gold); }
+  .concept-box-title { font-family: 'Noto Serif KR', serif; font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
+  .concept-box.red .concept-box-title { color: var(--red); }
+  .concept-box.gold .concept-box-title { color: var(--gold); }
+
+  /* TABLE */
+  .key-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 14px; }
+  .key-table th { background: var(--blue); color: white; padding: 8px 14px; text-align: left; font-weight: 500; font-size: 12px; }
+  .key-table td { padding: 9px 14px; border-bottom: 1px solid var(--border); vertical-align: middle; font-size: 13px; }
+  .key-table tr:nth-child(even) td { background: rgba(26,58,92,0.03); }
+  .key-table tr:last-child td { border-bottom: none; }
+
+  /* PROBLEM CARDS */
+  .problem-card { background: white; border: 2px solid var(--ink); border-radius: 4px; margin: 22px 0; overflow: hidden; }
+  .problem-header { background: var(--ink); color: white; padding: 9px 18px; display: flex; justify-content: space-between; align-items: center; }
+  .problem-num { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.08em; }
+  .problem-tag { background: var(--red); color: white; font-size: 10px; padding: 2px 10px; border-radius: 2px; letter-spacing: 0.1em; text-transform: uppercase; font-family: 'IBM Plex Mono', monospace; }
+  .problem-tag.kichul { background: #b8860b; color: white; font-size: 10px; padding: 2px 10px; border-radius: 2px; letter-spacing: 0.1em; font-family: 'IBM Plex Mono', monospace; }
+  .kichul-header { background: #3d2800; }
+  .kichul-badge-row { display: flex; align-items: center; gap: 8px; margin-bottom: 12px; }
+  .kichul-badge { background: #b8860b; color: white; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 2px; letter-spacing: 0.12em; font-family: 'IBM Plex Mono', monospace; text-transform: uppercase; }
+  .kichul-id { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray); letter-spacing: 0.1em; }
+  .kichul-border { border: 2px solid #b8860b; }
+  .problem-body { padding: 22px; }
+  .problem-text { font-size: 15px; line-height: 1.9; margin-bottom: 14px; font-family: 'Noto Serif KR', serif; }
+
+  /* SUB PROBLEMS */
+  .sub-problems { display: grid; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); gap: 10px; margin: 10px 0; }
+  .sub-problem { border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; background: var(--paper); font-size: 14px; }
+  .sub-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--gray); margin-bottom: 3px; }
+
+  /* SOLUTION */
+  .solution-toggle { background: none; border: 1px solid var(--border); border-radius: 4px; padding: 7px 14px; font-size: 12px; cursor: pointer; color: var(--gray); font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.06em; transition: all 0.2s; margin-top: 10px; }
+  .solution-toggle:hover { border-color: var(--blue); color: var(--blue); }
+  .solution-box { display: none; margin-top: 14px; background: var(--light-blue); border: 1px solid rgba(26,58,92,0.15); border-radius: 4px; padding: 18px; font-size: 14px; line-height: 1.9; }
+  .solution-box.open { display: block; }
+  .sol-step { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid rgba(26,58,92,0.1); }
+  .sol-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .sol-label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 4px; }
+  .answer-box { display: inline-block; background: var(--red); color: white; padding: 5px 18px; border-radius: 4px; font-family: 'Noto Serif KR', serif; font-weight: 700; font-size: 14px; margin-top: 10px; }
+
+  /* IB TAG */
+  .ib-tag { display: inline-flex; align-items: center; gap: 5px; background: var(--light-blue); border: 1px solid rgba(26,58,92,0.18); color: var(--blue); font-size: 11px; padding: 3px 11px; border-radius: 20px; font-weight: 500; margin: 3px 3px 3px 0; }
+
+  /* TOK */
+  .tok-box { background: linear-gradient(135deg,#fff9f0,#fdf5e4); border: 1px solid rgba(184,134,11,0.22); border-left: 4px solid var(--gold); border-radius: 0 8px 8px 0; padding: 16px 20px; margin: 18px 0; font-size: 14px; }
+  .tok-title { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .tok-question { font-style: italic; color: #5a4a00; line-height: 1.75; }
+
+  /* EXAMPLE */
+  .example-box { background: #f5f3f0; border: 1px solid var(--border); border-radius: 8px; padding: 18px 22px; margin: 18px 0; }
+  .example-title { font-family: 'Noto Serif KR', serif; font-weight: 700; font-size: 14px; color: var(--ink); margin-bottom: 12px; display: flex; align-items: center; gap: 10px; }
+  .example-title::before { content: ''; display: inline-block; width: 4px; height: 16px; background: var(--red); border-radius: 2px; flex-shrink: 0; }
+
+  /* LAYOUT */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 14px 0; }
+  .formula-box { background: #f8f5f0; border: 1px solid var(--border); border-radius: 6px; padding: 14px 18px; text-align: center; margin: 8px 0; font-size: 15px; }
+  .divider { height: 1px; background: var(--border); margin: 28px 0; }
+
+  /* FADE IN */
+  .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.45s ease, transform 0.45s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* SUMMARY */
+  #summary { background: var(--ink); color: white; }
+  #summary .section-label { color: #f0c060; }
+  #summary .section-label::after { background: rgba(255,255,255,0.1); }
+  #summary .section-title { color: white; }
+  #summary .section-desc { color: rgba(255,255,255,0.5); }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(240px,1fr)); gap: 14px; margin: 22px 0; }
+  .summary-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 18px; }
+  .summary-card-title { font-family: 'Noto Serif KR', serif; font-size: 14px; font-weight: 700; color: #f0c060; margin-bottom: 10px; }
+  .summary-card ul { list-style: none; font-size: 13px; color: rgba(255,255,255,0.68); line-height: 2.1; }
+  .summary-card ul li::before { content: '— '; color: rgba(255,255,255,0.25); }
+
+  @media (max-width: 600px) {
+    .two-col, .topic-grid { grid-template-columns: 1fr; }
+    nav { padding: 10px 16px; }
+    .nav-links { gap: 12px; }
+    .container { padding: 0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+
+<nav>
+  <span class="nav-title">I. 지수함수와 로그함수</span>
+  <ul class="nav-links">
+    <li><a href="#exponent">지수</a></li>
+    <li><a href="#exp-problems">지수 문제</a></li>
+    <li><a href="#log">로그</a></li>
+    <li><a href="#log-problems">로그 문제</a></li>
+    <li><a href="#summary">정리</a></li>
+  </ul>
+</nav>
+
+<!-- ===== TITLE ===== -->
+<section id="title">
+  <div class="container">
+    <div class="title-badge">IB SL Mathematics · 교과서 기반</div>
+    <h1 class="title-main">지수와 로그</h1>
+    <p class="title-sub">Exponents &amp; Logarithms · IB Core 1A, 1C</p>
+    <div class="topic-grid">
+      <div class="topic-item"><span class="num">01</span> 거듭제곱과 거듭제곱근</div>
+      <div class="topic-item"><span class="num">02</span> 지수의 확장</div>
+      <div class="topic-item"><span class="num">03</span> 로그의 정의와 성질</div>
+      <div class="topic-item"><span class="num">04</span> 상용로그</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPONENT CONCEPTS ===== -->
+<section id="exponent">
+  <div class="container">
+    <div class="section-label">Unit 01 — Exponents</div>
+    <h2 class="section-title">거듭제곱과 거듭제곱근</h2>
+    <p class="section-desc">IB Core 1A · Representation: 수를 다르게 표현하는 방법</p>
+
+    <div style="margin-bottom:16px;">
+      <span class="ib-tag">📐 Concept: Representation</span>
+      <span class="ib-tag">🔗 IB Core 1A</span>
+    </div>
+
+    <div class="concept-box fade-in">
+      <div class="concept-box-title">📖 거듭제곱근의 정의</div>
+      <p style="font-size:14px; margin-bottom:14px;">실수 \(a\)와 자연수 \(n\ (n\geq2)\)에 대하여 \(x^n = a\)의 근 \(x\)를 <strong>\(a\)의 \(n\)제곱근</strong>이라 한다. \(a\)의 제곱근, 세제곱근, 네제곱근, …을 통틀어 \(a\)의 <strong>거듭제곱근</strong>이라 한다.</p>
+      <table class="key-table">
+        <tr><th></th><th>\(a > 0\)</th><th>\(a = 0\)</th><th>\(a < 0\)</th></tr>
+        <tr><td><strong>\(n\)이 짝수</strong></td><td>\(\sqrt[n]{a},\ -\sqrt[n]{a}\) 두 개</td><td>0 하나</td><td>없다</td></tr>
+        <tr><td><strong>\(n\)이 홀수</strong></td><td>\(\sqrt[n]{a}\) 하나</td><td>0 하나</td><td>\(\sqrt[n]{a}\) 하나</td></tr>
+      </table>
+    </div>
+
+    <div class="tok-box fade-in">
+      <div class="tok-title">🎓 Theory of Knowledge</div>
+      <p class="tok-question">음수의 짝수제곱근이 실수 범위에서 존재하지 않는다. 복소수로 확장하면 존재하게 되는데 — 이는 수학적 진리가 우리가 선택한 수 체계에 의존한다는 것을 의미하는가? 수학의 진리는 절대적인가, 조건적인가?</p>
+    </div>
+
+    <!-- 교과서 예제 1 (p.13) -->
+    <div class="example-box fade-in">
+      <div class="example-title">교과서 예제 1 &nbsp;(p. 13)</div>
+      <p style="font-size:14px; margin-bottom:12px;">다음 거듭제곱근 중에서 실수인 것을 모두 구하시오.</p>
+      <div class="sub-problems">
+        <div class="sub-problem"><div class="sub-label">(1)</div>\(-8\)의 세제곱근</div>
+        <div class="sub-problem"><div class="sub-label">(2)</div>\(81\)의 네제곱근</div>
+      </div>
+      <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+      <div class="solution-box">
+        <div class="sol-step">
+          <div class="sol-label">(1) — −8의 세제곱근</div>
+          <p>\(x^3 = -8\)로 놓으면 \(x^3 + 8 = 0\), 즉 \((x+2)(x^2-2x+4)=0\)</p>
+          <p>\(x^2-2x+4=0\)의 판별식 \(D = 4-16 < 0\) → 실근 없음</p>
+          <p>따라서 \(x+2=0\)에서 실수인 세제곱근: \(x = -2\)</p>
+        </div>
+        <div class="sol-step">
+          <div class="sol-label">(2) — 81의 네제곱근</div>
+          <p>\(x^4 = 81\)로 놓으면 \((x-3)(x+3)(x^2+9)=0\)</p>
+          <p>\(x^2+9=0\)은 실근 없음 → 실수인 네제곱근: \(x = \pm 3\)</p>
+        </div>
+        <div class="answer-box">答 &nbsp; (1) −2 &nbsp;|&nbsp; (2) −3, 3</div>
+      </div>
+    </div>
+
+    <!-- 교과서 문제 3 (p.15) -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">■ 문제 3 &nbsp; (p. 15)</span>
+        <span class="problem-tag">기본</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">다음 값을 구하시오.</p>
+        <div class="sub-problems">
+          <div class="sub-problem"><div class="sub-label">(1)</div>\(\sqrt[3]{27}\)</div>
+          <div class="sub-problem"><div class="sub-label">(2)</div>\(-\!\sqrt[4]{81}\)</div>
+          <div class="sub-problem"><div class="sub-label">(3)</div>\(\sqrt[5]{-32}\)</div>
+          <div class="sub-problem"><div class="sub-label">(4)</div>\(\displaystyle\sqrt[8]{\dfrac{1}{256}}\)</div>
+        </div>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <p>(1) \(\sqrt[3]{27} = \sqrt[3]{3^3} = 3\)</p>
+            <p>(2) \(-\sqrt[4]{81} = -\sqrt[4]{3^4} = -3\)</p>
+            <p>(3) \(\sqrt[5]{-32} = \sqrt[5]{(-2)^5} = -2\)</p>
+            <p>(4) \(\sqrt[8]{\dfrac{1}{256}} = \sqrt[8]{\dfrac{1}{2^8}} = \dfrac{1}{2}\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; 3 &nbsp;/&nbsp; −3 &nbsp;/&nbsp; −2 &nbsp;/&nbsp; ½</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-box fade-in">
+      <div class="concept-box-title">📐 거듭제곱근의 성질 (p. 16)</div>
+      <p style="font-size:13px; margin-bottom:12px;">\(a>0,\ b>0\)이고 \(m,\ n\)이 2 이상인 자연수일 때,</p>
+      <div class="two-col">
+        <div class="formula-box">① &nbsp;\(\sqrt[n]{a}\cdot\sqrt[n]{b} = \sqrt[n]{ab}\)</div>
+        <div class="formula-box">② &nbsp;\(\dfrac{\sqrt[n]{a}}{\sqrt[n]{b}} = \sqrt[n]{\dfrac{a}{b}}\)</div>
+        <div class="formula-box">③ &nbsp;\((\sqrt[n]{a})^m = \sqrt[n]{a^m}\)</div>
+        <div class="formula-box">④ &nbsp;\(\sqrt[m]{\sqrt[n]{a}} = \sqrt[mn]{a}\)</div>
+      </div>
+    </div>
+
+    <!-- 교과서 문제 5 (p.17) -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">■ 문제 5 &nbsp; (p. 17)</span>
+        <span class="problem-tag">기본</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">다음 식을 간단히 하시오.</p>
+        <div class="sub-problems">
+          <div class="sub-problem"><div class="sub-label">(1)</div>\(\sqrt[3]{25}\times\sqrt[3]{5}\)</div>
+          <div class="sub-problem"><div class="sub-label">(2)</div>\(\dfrac{\sqrt[5]{243}}{\sqrt[5]{3}}\)</div>
+          <div class="sub-problem"><div class="sub-label">(3)</div>\((\sqrt[4]{49})^2\)</div>
+          <div class="sub-problem"><div class="sub-label">(4)</div>\(\sqrt[5]{\sqrt[3]{1024}}\)</div>
+        </div>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <p>(1) \(\sqrt[3]{25}\times\sqrt[3]{5} = \sqrt[3]{125} = \sqrt[3]{5^3} = 5\)</p>
+            <p>(2) \(\dfrac{\sqrt[5]{243}}{\sqrt[5]{3}} = \sqrt[5]{\dfrac{243}{3}} = \sqrt[5]{81} = \sqrt[5]{3^4} = 3^{\frac{4}{5}}\)</p>
+            <p>(3) \((\sqrt[4]{49})^2 = \sqrt[4]{49^2} = \sqrt[4]{7^4} = 7\)</p>
+            <p>(4) \(\sqrt[5]{\sqrt[3]{1024}} = \sqrt[15]{1024} = \sqrt[15]{2^{10}} = 2^{\frac{10}{15}} = 2^{\frac{2}{3}}\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; 5 &nbsp;/&nbsp; \(3^{\frac{4}{5}}\) &nbsp;/&nbsp; 7 &nbsp;/&nbsp; \(2^{\frac{2}{3}}\)</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-box fade-in">
+      <div class="concept-box-title">📐 유리수인 지수 (p. 21~22)</div>
+      <p style="font-size:13px; margin-bottom:12px;">\(a>0\)이고 \(m,\ n\ (n\geq2)\)이 정수일 때,</p>
+      <div class="two-col">
+        <div class="formula-box">\(a^{\frac{1}{n}} = \sqrt[n]{a}\)</div>
+        <div class="formula-box">\(a^{\frac{m}{n}} = \sqrt[n]{a^m} = (\sqrt[n]{a})^m\)</div>
+      </div>
+      <p style="font-size:13px; color:var(--gray); margin-top:8px;">지수가 유리수일 때도 지수법칙 성립: \(a^r a^s = a^{r+s},\ (a^r)^s = a^{rs}\) 등</p>
+    </div>
+
+    <!-- 교과서 문제 7 (p.23) -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">■ 문제 7 &nbsp; (p. 23)</span>
+        <span class="problem-tag">표준</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">다음 식을 간단히 하시오. (단, \(a>0,\ b>0\))</p>
+        <div class="sub-problems">
+          <div class="sub-problem"><div class="sub-label">(1)</div>\(3^{-\frac{3}{2}}\times 3^{0.5}\)</div>
+          <div class="sub-problem"><div class="sub-label">(2)</div>\(6^{\frac{4}{3}}\div 6^{\frac{1}{3}}\)</div>
+          <div class="sub-problem"><div class="sub-label">(3)</div>\(\left(a^{\frac{1}{3}}b^{\frac{2}{4}}\right)^{\frac{3}{5}}\)</div>
+          <div class="sub-problem"><div class="sub-label">(4)</div>\(a^{-\frac{2}{4}}b^{\frac{5}{2}}\times\!\left(a^{-\frac{2}{3}}b^{\frac{1}{2}}\right)^{\!\frac{1}{3}}\)</div>
+        </div>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <p>(1) \(3^{-\frac{3}{2}+\frac{1}{2}} = 3^{-1} = \dfrac{1}{3}\)</p>
+            <p>(2) \(6^{\frac{4}{3}-\frac{1}{3}} = 6^{1} = 6\)</p>
+            <p>(3) \(a^{\frac{1}{3}\cdot\frac{3}{5}} b^{\frac{1}{2}\cdot\frac{3}{5}} = a^{\frac{1}{5}}b^{\frac{3}{10}}\)</p>
+            <p>(4) \(a^{-\frac{1}{2}}b^{\frac{5}{2}} \cdot a^{-\frac{2}{9}}b^{\frac{1}{6}} = a^{-\frac{1}{2}-\frac{2}{9}}b^{\frac{5}{2}+\frac{1}{6}} = a^{-\frac{13}{18}}b^{\frac{8}{3}}\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; ⅓ &nbsp;/&nbsp; 6 &nbsp;/&nbsp; \(a^{\frac{1}{5}}b^{\frac{3}{10}}\) &nbsp;/&nbsp; \(a^{-\frac{13}{18}}b^{\frac{8}{3}}\)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 음악 문제 8 (p.23) -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">🎹 음악+ 문제 8 &nbsp; (p. 23)</span>
+        <span class="problem-tag">융합 STEM</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">피아노 건반의 진동수는 건반의 상대 위치에 따라 유리수 지수로 나타낼 수 있다. 건반 ①의 진동수를 \(H\)라 하면 건반 ⑧의 진동수는</p>
+        <div class="formula-box" style="margin:14px 0;">\(2^{\dfrac{n-1}{12}} \times H\)</div>
+        <p class="problem-text">라고 한다. 건반 ⑩의 진동수는 건반 ④의 진동수의 몇 배인지 구하시오.</p>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <div class="sol-label">건반 ④ (\(n=4\))</div>
+            <p>\(2^{\frac{3}{12}} \times H = 2^{\frac{1}{4}} \times H\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">건반 ⑩ (\(n=10\))</div>
+            <p>\(2^{\frac{9}{12}} \times H = 2^{\frac{3}{4}} \times H\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">배율 계산</div>
+            <p>\(\dfrac{2^{\frac{3}{4}} H}{2^{\frac{1}{4}} H} = 2^{\frac{3}{4}-\frac{1}{4}} = 2^{\frac{1}{2}} = \sqrt{2}\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; \(\sqrt{2}\) 배</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== EXPONENT REVIEW PROBLEMS ===== -->
+<section id="exp-problems" style="background:#eef2f7;">
+  <div class="container">
+    <div class="section-label">중단원 마무리 문제 — 표준·발전</div>
+    <h2 class="section-title">지수 심화 연습</h2>
+    <p class="section-desc">교과서 38쪽 · 수능 유형 문제</p>
+
+    <!-- 기출 22054-0004 -->
+    <div class="problem-card kichul-border fade-in">
+      <div class="problem-header kichul-header">
+        <span class="problem-num">04 &nbsp; 집합과 거듭제곱근</span>
+        <span class="problem-tag kichul">★ 기출</span>
+      </div>
+      <div class="problem-body">
+        <div class="kichul-badge-row">
+          <span class="kichul-badge">기출</span>
+          <span class="kichul-id">▶ 22054-0004 &nbsp;|&nbsp; 4점</span>
+        </div>
+        <p class="problem-text">
+          집합 \(X = \{2,\,3,\,4,\,5,\,6\}\)에 대하여 집합 \(Y\)를
+        </p>
+        <div class="formula-box">\(Y = \{(a,\,b) \mid a \in X \text{ 이고 } b \in X\}\)</div>
+        <p class="problem-text">
+          라 하자. 집합 \(Y\)의 원소 \((a,\,b)\) 중에서 \(a\)의 \(b\)제곱근 중 실수인 것의 개수가 <strong>2</strong>인 원소의 개수는 \(m\)이고, \(-a\)의 \(b\)제곱근 중 실수인 것의 개수가 <strong>1</strong>인 원소의 개수는 \(n\)이다.<br><br>
+          \(m + n\)의 값을 구하시오.
+        </p>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <div class="sol-label">핵심 원리 — 교과서 p.15 표</div>
+            <p>\(n\)이 <strong>짝수</strong>이고 \(a > 0\) → 실수인 \(n\)제곱근 <strong>2개</strong> (\(\sqrt[n]{a},\,-\sqrt[n]{a}\))</p>
+            <p>\(n\)이 <strong>홀수</strong> → \(a\)의 부호에 무관하게 항상 <strong>1개</strong></p>
+            <p>\(n\)이 짝수이고 \(a < 0\) → 실수인 \(n\)제곱근 <strong>0개</strong></p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">m 계산 — \(a\)의 \(b\)제곱근 중 실수가 2개인 \((a,b)\)</div>
+            <p>조건: \(b\)가 <strong>짝수</strong>이고 \(a > 0\)</p>
+            <p>\(X = \{2,3,4,5,6\}\)에서 \(a\)는 모두 양수 → \(a\) 선택 5가지</p>
+            <p>\(b \in \{2,\,4,\,6\}\) (짝수) → 3가지</p>
+            <p>\(\therefore\; m = 5 \times 3 = \mathbf{15}\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">n 계산 — \(-a\)의 \(b\)제곱근 중 실수가 1개인 \((a,b)\)</div>
+            <p>\(a \in X\)이므로 \(-a < 0\)</p>
+            <p>\(-a < 0\)일 때 실수인 \(b\)제곱근이 1개 → \(b\)가 <strong>홀수</strong></p>
+            <p>\(b \in \{3,\,5\}\) (홀수) → 2가지, \(a\) 선택 5가지</p>
+            <p>\(\therefore\; n = 5 \times 2 = \mathbf{10}\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; \(m + n = 15 + 10 = 25\)</div>
+          <div style="margin-top:14px; padding:10px 14px; background:rgba(184,134,11,0.08); border:1px solid rgba(184,134,11,0.25); border-radius:4px; font-size:12px; color:#5a4a00; line-height:1.75;">
+            📌 <strong>IB 연결 — Representation:</strong> 거듭제곱근의 실수 개수를 <em>n의 홀짝성 + a의 부호</em>로 체계화하는 것이 핵심. 같은 수라도 표현 방식(제곱근의 차수)에 따라 구조가 달라진다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 07 -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">07 &nbsp; 표준 ⭐ (p. 38)</span>
+        <span class="problem-tag">수능 유형</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">\(\sqrt{2} \times \sqrt[3]{2} \times \left(\sqrt[3]{2}\right)^{-\frac{9}{2}} = 2^k\)를 만족시키는 실수 \(k\)의 값을 구하시오.</p>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <div class="sol-label">유리수 지수로 변환</div>
+            <p>\(\sqrt{2} = 2^{\frac{1}{2}}\), &nbsp;\(\sqrt[3]{2} = 2^{\frac{1}{3}}\), &nbsp;\(\left(2^{\frac{1}{3}}\right)^{-\frac{9}{2}} = 2^{-\frac{3}{2}}\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">지수끼리 덧셈</div>
+            <p>\(k = \dfrac{1}{2} + \dfrac{1}{3} - \dfrac{3}{2} = \dfrac{3+2-9}{6} = -\dfrac{4}{6} = -\dfrac{2}{3}\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; \(k = -\dfrac{2}{3}\)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 08 -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">08 &nbsp; 표준 ⭐ (p. 38)</span>
+        <span class="problem-tag">수능 유형</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">양수 \(x\)에 대하여 \(x^{\frac{1}{2}} + x^{-\frac{1}{2}} = 3\)일 때, \(x^2 + x^{-2}\)의 값을 구하시오.</p>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <div class="sol-label">Step 1 — \(x+x^{-1}\) 구하기</div>
+            <p>\(\left(x^{\frac{1}{2}} + x^{-\frac{1}{2}}\right)^2 = x + 2 + x^{-1} = 9\)</p>
+            <p>∴ \(x + x^{-1} = 7\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">Step 2 — \(x^2+x^{-2}\) 구하기</div>
+            <p>\((x + x^{-1})^2 = x^2 + 2 + x^{-2} = 49\)</p>
+            <p>∴ \(x^2 + x^{-2} = 47\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; 47</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 09 -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">09 &nbsp; 표준 ⭐ (p. 38)</span>
+        <span class="problem-tag">수능 유형</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">실수 \(a\)에 대하여 \(\dfrac{2^a - 2^{-a}}{2^a + 2^{-a}} = \dfrac{1}{2}\)일 때, \(4^a + 4^{-a}\)의 값을 구하시오.</p>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <div class="sol-label">교차 곱셈</div>
+            <p>\(2(2^a - 2^{-a}) = 2^a + 2^{-a}\)</p>
+            <p>\(2 \cdot 2^a - 2 \cdot 2^{-a} = 2^a + 2^{-a}\), 즉 \(2^a = 3 \cdot 2^{-a}\)</p>
+            <p>\(2^{2a} = 3\), 따라서 \(4^a = 3\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">최종 계산</div>
+            <p>\(4^a + 4^{-a} = 3 + \dfrac{1}{3} = \dfrac{10}{3}\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; \(\dfrac{10}{3}\)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 발전 15 -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">15 &nbsp; 발전 ⭐⭐ (p. 39)</span>
+        <span class="problem-tag">수능 고난도</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">실수 \(x\)에 대하여 \(x\)의 세제곱근 중에서 실수인 것의 개수를 \(f(x)\), \(x\)의 네제곱근 중에서 실수인 것의 개수를 \(g(x)\)라 하자.<br><br>
+        \(|a| \leq 5\)와 \(|b| \leq 5\)를 만족시키는 두 정수 \(a\)와 \(b\)에 대하여 \(f(a)g(b) = 2\)를 만족시키는 순서쌍 \((a,b)\)의 개수를 구하시오.</p>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <div class="sol-label">\(f(x)\) 분석 — 세제곱근 (n이 홀수)</div>
+            <p>모든 실수 \(x\)에 대해 \(f(x)=1\) (홀수 제곱근은 항상 실수 1개)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">\(g(x)\) 분석 — 네제곱근 (n이 짝수)</div>
+            <p>\(x > 0\): \(g(x) = 2\), &nbsp;\(x = 0\): \(g(x) = 1\), &nbsp;\(x < 0\): \(g(x) = 0\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">조건 분석</div>
+            <p>\(f(a) = 1\)이므로 \(g(b) = 2\) 필요, 즉 \(b > 0\)</p>
+            <p>\(|a| \leq 5\): \(a \in \{-5,\ldots,5\}\) → 11가지</p>
+            <p>\(|b| \leq 5,\ b>0\): \(b \in \{1,2,3,4,5\}\) → 5가지</p>
+            <p>총 \(11 \times 5 = 55\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; 55</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOG CONCEPTS ===== -->
+<section id="log">
+  <div class="container">
+    <div class="section-label">Unit 03 — Logarithms</div>
+    <h2 class="section-title">로그</h2>
+    <p class="section-desc">IB Core 1C · Representation — 지수의 역연산</p>
+
+    <div style="margin-bottom:16px;">
+      <span class="ib-tag">📐 Concept: Representation</span>
+      <span class="ib-tag">🔁 지수 ↔ 로그 역함수</span>
+    </div>
+
+    <div class="concept-box fade-in">
+      <div class="concept-box-title">📖 로그의 정의 (p. 26)</div>
+      <p style="font-size:14px; margin-bottom:14px;">\(a>0,\ a\neq1\)일 때, 양수 \(N\)에 대하여 \(a^x = N\)을 만족시키는 실수 \(x\)는 오직 하나 존재한다. 이 \(x\)를</p>
+      <div class="formula-box" style="font-size:18px;">\(a^x = N \Longleftrightarrow x = \log_a N\)</div>
+      <p style="font-size:13px; color:var(--gray); margin-top:10px;">\(a\)를 <strong>밑</strong>, \(N\)을 <strong>진수</strong>라 한다. 밑의 조건: \(a>0,\ a\neq1\). 진수의 조건: \(N>0\).</p>
+    </div>
+
+    <div class="concept-box red fade-in">
+      <div class="concept-box-title">📐 로그의 성질 (p. 28)</div>
+      <p style="font-size:13px; margin-bottom:12px;">\(a>0,\ a\neq1,\ M>0,\ N>0\)일 때,</p>
+      <div class="two-col">
+        <div class="formula-box">① &nbsp;\(\log_a 1 = 0, \quad \log_a a = 1\)</div>
+        <div class="formula-box">② &nbsp;\(\log_a MN = \log_a M + \log_a N\)</div>
+        <div class="formula-box">③ &nbsp;\(\log_a \dfrac{M}{N} = \log_a M - \log_a N\)</div>
+        <div class="formula-box">④ &nbsp;\(\log_a M^k = k\log_a M\)</div>
+      </div>
+    </div>
+
+    <div class="tok-box fade-in">
+      <div class="tok-title">🎓 ToK — 로그의 역사</div>
+      <p class="tok-question">스코틀랜드 수학자 <strong>네이피어(Napier, 1550~1617)</strong>는 큰 수의 곱셈을 덧셈으로 바꾸는 로그표를 만들었다. 라플라스(Laplace)는 "로그는 천문학자의 수명을 배로 늘려주었다"고 했다. 수학적 도구의 발명은 단순한 편의인가, 아니면 새로운 진리의 발견인가?</p>
+    </div>
+
+    <!-- 교과서 문제 3 로그 (p.27) -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">■ 문제 3 &nbsp; (p. 27)</span>
+        <span class="problem-tag">기본</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">다음 값을 구하시오.</p>
+        <div class="sub-problems">
+          <div class="sub-problem"><div class="sub-label">(1)</div>\(\log_2 16\)</div>
+          <div class="sub-problem"><div class="sub-label">(2)</div>\(\log_3 \dfrac{1}{81}\)</div>
+          <div class="sub-problem"><div class="sub-label">(3)</div>\(\log_{\frac{1}{7}} 49\)</div>
+          <div class="sub-problem"><div class="sub-label">(4)</div>\(\log_4 \sqrt{64}\)</div>
+        </div>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <p>(1) \(\log_2 16 = \log_2 2^4 = 4\)</p>
+            <p>(2) \(\log_3 \dfrac{1}{81} = \log_3 3^{-4} = -4\)</p>
+            <p>(3) \(\log_{\frac{1}{7}} 49 = \log_{\frac{1}{7}} \left(\dfrac{1}{7}\right)^{-2} = -2\)</p>
+            <p>(4) \(\log_4 \sqrt{64} = \log_4 4^{\frac{3}{2}} = \dfrac{3}{2}\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; 4 &nbsp;/&nbsp; −4 &nbsp;/&nbsp; −2 &nbsp;/&nbsp; 3/2</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 교과서 예제 2 (p.29) -->
+    <div class="example-box fade-in">
+      <div class="example-title">교과서 예제 2 &nbsp;(p. 29)</div>
+      <p style="font-size:14px; margin-bottom:12px;">다음 값을 구하시오.</p>
+      <div class="sub-problems">
+        <div class="sub-problem"><div class="sub-label">(1)</div>\(\log_3\dfrac{9}{5} + 2\log_3\sqrt{15}\)</div>
+        <div class="sub-problem"><div class="sub-label">(2)</div>\(2\log_2\sqrt{3} - \log_2 6 + 6\log_2\sqrt{2}\)</div>
+      </div>
+      <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+      <div class="solution-box">
+        <div class="sol-step">
+          <div class="sol-label">(1)</div>
+          <p>\(\log_3\dfrac{9}{5} + 2\log_3\sqrt{15} = \log_3\dfrac{9}{5} + \log_3(\sqrt{15})^2\)</p>
+          <p>\(= \log_3\dfrac{9}{5} + \log_3 15 = \log_3\!\left(\dfrac{9}{5} \times 15\right) = \log_3 27 = 3\)</p>
+        </div>
+        <div class="sol-step">
+          <div class="sol-label">(2)</div>
+          <p>\(= \log_2(\sqrt{3})^2 - \log_2 6 + \log_2(\sqrt{2})^6\)</p>
+          <p>\(= \log_2 3 - \log_2 6 + \log_2 8 = \log_2\dfrac{3 \times 8}{6} = \log_2 4 = 2\)</p>
+        </div>
+        <div class="answer-box">答 &nbsp; (1) 3 &nbsp;|&nbsp; (2) 2</div>
+      </div>
+    </div>
+
+    <div class="concept-box gold fade-in">
+      <div class="concept-box-title">🔄 로그의 밑의 변환 (p. 30)</div>
+      <p style="font-size:13px; margin-bottom:12px;">\(a>0,\ a\neq1,\ b>0,\ c>0,\ c\neq1\)일 때,</p>
+      <div class="formula-box" style="font-size:17px;">\(\log_a b = \dfrac{\log_c b}{\log_c a}\)</div>
+      <p style="font-size:13px; color:var(--gray); margin-top:8px;">특히 \((\log_a b)(\log_b a) = 1\), &nbsp; \(\log_{a^m} b^n = \dfrac{n}{m}\log_a b\)</p>
+    </div>
+
+    <!-- 교과서 문제 8 (p.30) -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">■ 문제 8 &nbsp; (p. 30)</span>
+        <span class="problem-tag">표준</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">1이 아닌 두 양수 \(a\)와 \(b\)에 대하여 다음 등식이 성립함을 보이시오.</p>
+        <div class="sub-problems">
+          <div class="sub-problem"><div class="sub-label">(1)</div>\((\log_a b)(\log_b a) = 1\)</div>
+          <div class="sub-problem"><div class="sub-label">(2)</div>\(\log_{a^m} b^n = \dfrac{n}{m}\log_a b\) &nbsp;(\(m \neq 0\))</div>
+        </div>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <div class="sol-label">(1) 밑의 변환 적용</div>
+            <p>\(\log_a b = \dfrac{\log b}{\log a}\), &nbsp;\(\log_b a = \dfrac{\log a}{\log b}\)</p>
+            <p>\((\log_a b)(\log_b a) = \dfrac{\log b}{\log a} \cdot \dfrac{\log a}{\log b} = 1\) &nbsp;■</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">(2) 밑의 변환 적용</div>
+            <p>\(\log_{a^m} b^n = \dfrac{\log b^n}{\log a^m} = \dfrac{n\log b}{m\log a} = \dfrac{n}{m}\cdot\dfrac{\log b}{\log a} = \dfrac{n}{m}\log_a b\) &nbsp;■</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== LOG REVIEW PROBLEMS ===== -->
+<section id="log-problems" style="background:#eef2f7;">
+  <div class="container">
+    <div class="section-label">중단원 마무리 문제 — 표준·발전</div>
+    <h2 class="section-title">로그 심화 연습</h2>
+    <p class="section-desc">교과서 37~39쪽</p>
+
+    <!-- 기출 f(xy)=f(x)+f(y) -->
+    <div class="problem-card kichul-border fade-in">
+      <div class="problem-header kichul-header">
+        <span class="problem-num">문항 예시 &nbsp; 함수방정식과 로그</span>
+        <span class="problem-tag kichul">★ 기출</span>
+      </div>
+      <div class="problem-body">
+        <div class="kichul-badge-row">
+          <span class="kichul-badge">기출</span>
+          <span class="kichul-id">함수방정식 유형 &nbsp;|&nbsp; 4점</span>
+        </div>
+        <p class="problem-text">
+          양의 실수 전체의 집합에서 정의된 함수 \(f(x)\)가 임의의 양수 \(x\), \(y\)에 대하여
+        </p>
+        <div class="formula-box">\(f(xy) = f(x) + f(y)\)</div>
+        <p class="problem-text">
+          를 만족하고 \(f(2) = 1\)일 때, \(f(16)\)의 값을 구하시오.
+        </p>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <div class="sol-label">구조 분석</div>
+            <p>조건 \(f(xy)=f(x)+f(y)\)는 교과서 p.28 로그의 성질 ②</p>
+            <p style="margin-top:5px;">\(\log_a MN = \log_a M + \log_a N\)과 <strong>완전히 동일한 구조</strong>.</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">밑 결정</div>
+            <p>\(f(x) = \log_a x\)로 놓으면 \(f(2) = \log_a 2 = 1\)</p>
+            <p>\(\therefore\; a = 2\), 즉 \(f(x) = \log_2 x\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">계산</div>
+            <p>\(f(16) = \log_2 16 = \log_2 2^4 = 4\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">검증 — 함수방정식으로 직접 확인</div>
+            <p>\(f(16) = f(2\cdot2\cdot2\cdot2)\)</p>
+            <p>\(= f(2)+f(2)+f(2)+f(2) = 1+1+1+1 = 4\) ✓</p>
+          </div>
+          <div class="answer-box">答 &nbsp; 4</div>
+          <div style="margin-top:14px; padding:10px 14px; background:rgba(184,134,11,0.08); border:1px solid rgba(184,134,11,0.25); border-radius:4px; font-size:12px; color:#5a4a00; line-height:1.75;">
+            📌 <strong>IB ToK 연결:</strong> \(f(xy)=f(x)+f(y)\)는 <em>곱셈을 덧셈으로 변환</em>하는 구조 — 이것이 바로 네이피어가 로그를 고안한 이유이자 항해사들이 로그표를 사용했던 핵심이다. <strong>Representation</strong>: 연산의 복잡도를 낮추는 더 좋은 표현법의 발명.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04 -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">04 &nbsp; 기본 (p. 37)</span>
+        <span class="problem-tag">기본</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">다음 값을 구하시오.</p>
+        <div class="sub-problems">
+          <div class="sub-problem"><div class="sub-label">(1)</div>\(\log_{15}3 + \log_{15}5\)</div>
+          <div class="sub-problem"><div class="sub-label">(2)</div>\(\log_3 54 - \log_3 6\)</div>
+          <div class="sub-problem"><div class="sub-label">(3)</div>\(\log_{\frac{1}{2}} 5\sqrt{5}\)</div>
+          <div class="sub-problem"><div class="sub-label">(4)</div>\(\log_6 3\sqrt{2} - \log_6\sqrt{3}\)</div>
+        </div>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <p>(1) \(\log_{15}(3\times5) = \log_{15}15 = 1\)</p>
+            <p>(2) \(\log_3\dfrac{54}{6} = \log_3 9 = 2\)</p>
+            <p>(3) \(\log_{\frac{1}{2}} 5^{\frac{3}{2}}\) — 직접 계산하면 \(-\dfrac{3}{2}\log_{\frac{1}{2}}\dfrac{1}{5}\) … 혹은 \(= \log_{\frac{1}{2}} 5 + \dfrac{1}{2}\log_{\frac{1}{2}}5 = \dfrac{3}{2}\log_{\frac{1}{2}}5\)</p>
+            <p>(4) \(\log_6\dfrac{3\sqrt{2}}{\sqrt{3}} = \log_6\sqrt{6} = \dfrac{1}{2}\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; 1 &nbsp;/&nbsp; 2 &nbsp;/&nbsp; \(\frac{3}{2}\log_{\frac{1}{2}}5\) &nbsp;/&nbsp; ½</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 11 서술형 -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">11 &nbsp; 서술형 ✏️ (p. 38)</span>
+        <span class="problem-tag">서술형</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">다음을 모두 만족시키는 두 양수 \(a\)와 \(b\)에 대하여 \(a^2 + b^2\)의 값을 구하는 풀이 과정과 답을 쓰시오.</p>
+        <div style="background:#f8f8f5; border:1px solid var(--border); border-radius:4px; padding:14px 18px; margin:10px 0;">
+          <p style="margin-bottom:7px;">㈎ &nbsp;\(\log_2 a + \log_2 b = 1\)</p>
+          <p>㈏ &nbsp;\(\log_2\!\left(1+\dfrac{1}{a}\right) + \log_2\!\left(1+\dfrac{1}{b}\right) = 3\)</p>
+        </div>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <div class="sol-label">조건 ㈎</div>
+            <p>\(\log_2 ab = 1 \Rightarrow ab = 2\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">조건 ㈏</div>
+            <p>\(\log_2\!\dfrac{(a+1)(b+1)}{ab} = 3 \Rightarrow (a+1)(b+1) = 8ab = 16\)</p>
+            <p>\(ab + a + b + 1 = 16 \Rightarrow 2 + a + b + 1 = 16 \Rightarrow a + b = 13\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">최종 계산</div>
+            <p>\(a^2 + b^2 = (a+b)^2 - 2ab = 169 - 4 = 165\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; 165</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 12 -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">12 &nbsp; 표준 ⭐ (p. 38)</span>
+        <span class="problem-tag">수능 유형</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">다음 값을 구하시오.</p>
+        <div class="sub-problems">
+          <div class="sub-problem"><div class="sub-label">(1)</div>\(\log_2\dfrac{2\sqrt{3}}{9} + \dfrac{1}{2}\log_2 12 - \log_2\dfrac{4}{3}\)</div>
+          <div class="sub-problem"><div class="sub-label">(2)</div>\(\log_2 9 \times \log_3 125 \times \log_5 1024\)</div>
+        </div>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <div class="sol-label">(1)</div>
+            <p>\(= \log_2\!\left(\dfrac{2\sqrt{3}}{9} \cdot \sqrt{12} \cdot \dfrac{3}{4}\right) = \log_2\!\left(\dfrac{2\sqrt{3} \cdot 2\sqrt{3} \cdot 3}{9 \cdot 4}\right) = \log_2\!\left(\dfrac{12 \cdot 3}{36}\right) = \log_2 1 = 0\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">(2) — 밑의 변환(연쇄)</div>
+            <p>\(\dfrac{\log 9}{\log 2} \cdot \dfrac{\log 125}{\log 3} \cdot \dfrac{\log 1024}{\log 5} = \dfrac{2\log 3}{\log 2} \cdot \dfrac{3\log 5}{\log 3} \cdot \dfrac{10\log 2}{\log 5} = 60\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; (1) 0 &nbsp;|&nbsp; (2) 60</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 13 -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">13 &nbsp; 표준 (p. 38)</span>
+        <span class="problem-tag">표준</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">\(\log_5 2 = a\)이고 \(\log_5 3 = b\)일 때, 다음을 \(a\)와 \(b\)로 나타내시오.</p>
+        <div class="sub-problems">
+          <div class="sub-problem"><div class="sub-label">(1)</div>\(\log_5 36\)</div>
+          <div class="sub-problem"><div class="sub-label">(2)</div>\(\log_4 90\)</div>
+        </div>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <p>(1) \(\log_5 36 = \log_5(4\times9) = \log_5 2^2 + \log_5 3^2 = 2a + 2b\)</p>
+          </div>
+          <div class="sol-step">
+            <p>(2) \(\log_4 90 = \dfrac{\log_5 90}{\log_5 4} = \dfrac{\log_5(2 \cdot 9 \cdot 5)}{2a} = \dfrac{a + 2b + 1}{2a}\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; (1) \(2a+2b\) &nbsp;|&nbsp; (2) \(\dfrac{a+2b+1}{2a}\)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 발전 18 서술형 -->
+    <div class="problem-card fade-in">
+      <div class="problem-header">
+        <span class="problem-num">18 &nbsp; 발전 ⭐⭐ 서술형 (p. 39)</span>
+        <span class="problem-tag">수능 고난도</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text">1보다 큰 두 실수 \(a\)와 \(b\)에 대하여</p>
+        <div class="formula-box" style="margin:12px 0;">\(\log_{\sqrt{2}} a = \log_4 ab\)</div>
+        <p class="problem-text">가 성립할 때, \(\log_a b\)의 값을 구하는 풀이 과정과 답을 쓰시오.</p>
+        <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+        <div class="solution-box">
+          <div class="sol-step">
+            <div class="sol-label">밑을 2로 통일</div>
+            <p>\(\log_{\sqrt{2}} a = \dfrac{\log_2 a}{\log_2 \sqrt{2}} = \dfrac{\log_2 a}{\frac{1}{2}} = 2\log_2 a\)</p>
+            <p>\(\log_4 ab = \dfrac{\log_2 ab}{2} = \dfrac{\log_2 a + \log_2 b}{2}\)</p>
+          </div>
+          <div class="sol-step">
+            <div class="sol-label">등식 풀기</div>
+            <p>\(2\log_2 a = \dfrac{\log_2 a + \log_2 b}{2}\)</p>
+            <p>\(4\log_2 a = \log_2 a + \log_2 b\)</p>
+            <p>\(\log_2 b = 3\log_2 a\), 따라서 \(\log_a b = 3\)</p>
+          </div>
+          <div class="answer-box">答 &nbsp; 3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SUMMARY ===== -->
+<section id="summary">
+  <div class="container">
+    <div class="section-label">Summary</div>
+    <h2 class="section-title">단원 정리</h2>
+    <p class="section-desc">핵심 공식 · IB Connections · 수능 포인트</p>
+
+    <div class="summary-grid">
+      <div class="summary-card">
+        <div class="summary-card-title">📐 지수 핵심</div>
+        <ul>
+          <li>\(a^0 = 1,\; a^{-n} = \frac{1}{a^n}\)</li>
+          <li>\(a^{\frac{m}{n}} = \sqrt[n]{a^m}\)</li>
+          <li>지수법칙 4가지 항상 성립</li>
+          <li>실수 지수까지 확장 가능</li>
+        </ul>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-title">📖 로그 핵심</div>
+        <ul>
+          <li>\(a^x = N \Leftrightarrow x = \log_a N\)</li>
+          <li>로그 성질 4가지</li>
+          <li>밑의 변환: \(\frac{\log_c b}{\log_c a}\)</li>
+          <li>상용로그: 밑이 10인 로그</li>
+        </ul>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-title">🌐 IB Core 1A, 1C</div>
+        <ul>
+          <li>Representation: 수의 다양한 표현</li>
+          <li>지수함수 ↔ 로그함수 역함수</li>
+          <li>자연 현상·공학 모델링</li>
+          <li>ToK: 수학적 도구의 본질</li>
+        </ul>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-title">🎯 수능 주요 패턴</div>
+        <ul>
+          <li>유리수 지수 → 지수법칙 계산</li>
+          <li>\(t = a^x\) 치환 후 이차 접근</li>
+          <li>로그 성질 조합 + 밑의 변환</li>
+          <li>연쇄 곱셈 \(\log_a b \cdot \log_b c\) 활용</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:36px; padding:22px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px;">
+      <div class="tok-title" style="color:#f0c060; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:10px;">🎓 Final ToK Question</div>
+      <p style="color:rgba(255,255,255,0.72); font-style:italic; font-size:15px; line-height:1.85;">지수와 로그는 서로의 역함수 관계이다. 수학에서 "역"이라는 개념은 — 덧셈↔뺄셈, 곱셈↔나눗셈, 지수↔로그 — 어디까지 적용될 수 있을까? 이 구조적 대칭은 수학이 발명된 것이 아니라 발견된 것임을 시사하는가?</p>
+    </div>
+  </div>
+</section>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+    document.getElementById('progress-bar').style.width = pct + '%';
+  });
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+  function toggleSol(btn) {
+    const box = btn.nextElementSibling;
+    box.classList.toggle('open');
+    btn.textContent = box.classList.contains('open') ? '▼ 풀이 닫기' : '▶ 풀이 보기';
+  }
+</script>
+</body>
+</html>
