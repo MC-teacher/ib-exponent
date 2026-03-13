@@ -146,6 +146,7 @@
     <li><a href="#exp-problems">지수 문제</a></li>
     <li><a href="#log">로그</a></li>
     <li><a href="#log-problems">로그 문제</a></li>
+    <li><a href="#tok-activity">ToK 활동</a></li>
     <li><a href="#summary">정리</a></li>
   </ul>
 </nav>
@@ -829,6 +830,305 @@
   </div>
 </section>
 
+<!-- ===== TOK ACTIVITY ===== -->
+<section id="tok-activity">
+  <div class="container">
+    <div class="section-label">IB ToK · 탐구 활동</div>
+    <h2 class="section-title">대칭, 불가능성, 그리고 수학적 진리</h2>
+    <p class="section-desc">거듭제곱근의 대칭성 → 역설계 탐구 → 수학 vs 물리학 토론</p>
+
+    <!-- 출발점 개념 -->
+    <div class="concept-box fade-in" style="margin-bottom:18px;">
+      <div class="concept-box-title">🔍 탐구의 출발점 — 거듭제곱근 표에서 시작된 질문</div>
+      <div class="two-col" style="margin-top:12px;">
+        <div>
+          <table class="key-table">
+            <tr><th></th><th>\(a &gt; 0\)</th><th>\(a = 0\)</th><th>\(a &lt; 0\)</th></tr>
+            <tr><td><strong>\(n\)이 짝수</strong></td><td>\(\sqrt[n]{a},\,-\sqrt[n]{a}\)</td><td>0</td><td>없다</td></tr>
+            <tr><td><strong>\(n\)이 홀수</strong></td><td>\(\sqrt[n]{a}\)</td><td>0</td><td>\(\sqrt[n]{a}\)</td></tr>
+          </table>
+        </div>
+        <div style="font-size:14px; color:var(--gray); line-height:1.85; padding-left:4px;">
+          <strong style="color:var(--ink);">핵심 질문:</strong><br>
+          \(n\)이 짝수일 때 양수의 근이 항상 2개인 것은 <em>자연의 법칙</em>인가, 아니면 <em>수학적 정의의 결과</em>인가?<br><br>
+          이 표가 이 수업의 모든 ToK 탐구의 출발점이다.
+        </div>
+      </div>
+    </div>
+
+    <!-- 활동 1: 역설계 -->
+    <div class="tok-box fade-in" style="margin-bottom:14px;">
+      <div class="tok-title">📐 탐구 활동 1 — 역설계: m+n = 30이 되는 집합 X 설계하기</div>
+      <div class="tok-question" style="font-style:normal; color:var(--ink); font-size:14px; line-height:1.85;">
+        기출 문제(22054-0004)에서 \(X=\{2,3,4,5,6\}\)일 때 \(m+n=25\)였다.<br>
+        <strong>\(m+n=30\)이 되도록 집합 \(X\)를 설계할 수 있을까?</strong>
+      </div>
+
+      <div class="divider" style="margin:14px 0;"></div>
+
+      <!-- 공식도출 + 핵심발견 전체 숨김 -->
+      <div style="margin-top:4px;">
+        <button class="solution-toggle" onclick="toggleSol(this)" style="width:100%; text-align:left; padding:11px 16px; font-size:13px; border-radius:6px; border:1.5px dashed var(--border);">
+          ▶ 스스로 생각해본 후 — 공식 도출 &amp; 핵심 발견 확인하기
+        </button>
+        <div class="solution-box">
+
+          <div class="sol-step">
+            <div class="sol-label">공식 도출</div>
+            <p>집합 \(X\)에서 양수의 개수를 \(p\), 집합의 크기를 \(|X|\)라 하면:</p>
+            <div class="formula-box" style="margin:8px 0;">\(m = p \times (\text{짝수 } b\text{의 수}),\quad n = p \times (\text{홀수 } b\text{의 수})\)</div>
+            <div class="formula-box" style="margin:8px 0; background:rgba(26,58,92,0.06);">\(m + n = p \times |X|\)</div>
+            <p style="font-size:13px; color:var(--gray); margin-top:6px;">짝수든 홀수든 양수 \(a\)는 항상 한 쪽에 카운트되므로, \(b\)의 홀짝 분포와 무관하게 성립한다.</p>
+          </div>
+
+          <div class="sol-step">
+            <div class="sol-label">Step 1 — b의 조건 재확인</div>
+            <p>집합 \(X\)의 원소는 \(a\)로도 쓰이고 <strong>\(b\)(거듭제곱근의 차수)로도</strong> 쓰인다.<br>
+            \(b\)는 반드시 <strong>2 이상의 자연수</strong>여야 하므로, 집합 \(X\)의 원소는 모두 자연수.</p>
+          </div>
+
+          <div class="sol-step">
+            <div class="sol-label">Step 2 — 공식 단순화</div>
+            <p>모든 원소가 양수(자연수)이므로 \(p = |X|\).</p>
+            <div class="formula-box" style="margin:8px 0; background:rgba(26,58,92,0.06);">\(m + n = p \times |X| = |X|^2\)</div>
+            <p>가능한 \(m+n\) 값은 반드시 <strong>완전제곱수</strong>:</p>
+            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:8px; margin:10px 0;">
+              <div class="formula-box" style="margin:0;">\(|X|=2\)<br><strong>4</strong></div>
+              <div class="formula-box" style="margin:0;">\(|X|=3\)<br><strong>9</strong></div>
+              <div class="formula-box" style="margin:0;">\(|X|=5\)<br><strong>25</strong></div>
+              <div class="formula-box" style="margin:0;">\(|X|=6\)<br><strong>36</strong></div>
+            </div>
+          </div>
+
+          <div class="sol-step">
+            <div class="sol-label">Step 3 — 30은 완전제곱수인가?</div>
+            <p>\(\sqrt{30} \approx 5.47\cdots\) — 자연수가 아니다.</p>
+            <div style="background:var(--light-red); border:1px solid rgba(192,57,43,0.2); border-radius:6px; padding:11px 15px; margin-top:8px;">
+              <strong style="color:var(--red);">결론:</strong> 조건을 지키는 자연수 집합으로 \(m+n=30\)을 만드는 것은 <strong>불가능하다.</strong>
+            </div>
+          </div>
+
+          <div class="sol-step">
+            <div class="sol-label" style="color:var(--red);">Step 4 — 흔한 오류: X = {2, 3, 4, 5, 6, −2} 를 시도하면?</div>
+            <p>표면상: 양수 5개, \(|X|=6\) → \(5\times6=30\) ✓ 처럼 보이지만…</p>
+            <p style="margin-top:6px;">\(b=-2\)는 "−2제곱근"으로 <strong>정의 자체가 성립하지 않는다.</strong><br>
+            집합의 원소가 \(b\)로 쓰일 때는 반드시 자연수여야 하므로 이 설계는 무효.</p>
+          </div>
+
+          <div class="answer-box">∴ m+n이 될 수 있는 값 = 완전제곱수만 가능 &nbsp;|&nbsp; 30은 불가능</div>
+
+          <div style="margin-top:12px; background:rgba(184,134,11,0.07); border-radius:6px; padding:10px 14px; font-size:12px; color:#5a4a00; line-height:1.75;">
+            <strong>ToK 연결:</strong> "답이 없다"는 것을 <em>증명</em>하는 것도 수학적 지식이다. 물리학은 "없을 것 같다"고 말하지만, 수학은 "절대로 없다"고 말할 수 있다.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 활동 1-B: 그래프 탐구 -->
+    <div class="tok-box fade-in" style="margin-bottom:14px;">
+      <div class="tok-title">📊 탐구 활동 1-B — 그래프로 직접 확인하기</div>
+      <p class="tok-question">\(y = x^n\)과 \(y = a\)를 같은 화면에 그려서 교점의 수를 세어 보자. \(n\)과 \(a\)의 값을 바꿔가며 아래 표를 직접 완성한다.</p>
+      <p style="font-size:12px; color:var(--gray); margin:6px 0 14px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.04em;">🔗 Desmos (desmos.com/calculator) 또는 GDC (TI-84) 사용</p>
+
+      <div style="overflow-x:auto; margin-bottom:16px;">
+        <table class="key-table" style="font-size:13px; text-align:center;">
+          <tr>
+            <th style="text-align:center;">\(n\)</th>
+            <th style="text-align:center;">\(a\)</th>
+            <th style="text-align:center;">교점의 수</th>
+            <th style="text-align:center;">그래프 특성</th>
+          </tr>
+          <tr><td>2 (짝수)</td><td>\(a &gt; 0\)</td><td style="color:var(--gray); font-style:italic;">?</td><td style="color:var(--gray); font-style:italic;">직접 확인</td></tr>
+          <tr><td>2 (짝수)</td><td>\(a = 0\)</td><td style="color:var(--gray); font-style:italic;">?</td><td style="color:var(--gray); font-style:italic;">직접 확인</td></tr>
+          <tr><td>2 (짝수)</td><td>\(a &lt; 0\)</td><td style="color:var(--gray); font-style:italic;">?</td><td style="color:var(--gray); font-style:italic;">직접 확인</td></tr>
+          <tr><td>3 (홀수)</td><td>\(a &gt; 0\)</td><td style="color:var(--gray); font-style:italic;">?</td><td style="color:var(--gray); font-style:italic;">직접 확인</td></tr>
+          <tr><td>3 (홀수)</td><td>\(a = 0\)</td><td style="color:var(--gray); font-style:italic;">?</td><td style="color:var(--gray); font-style:italic;">직접 확인</td></tr>
+          <tr><td>3 (홀수)</td><td>\(a &lt; 0\)</td><td style="color:var(--gray); font-style:italic;">?</td><td style="color:var(--gray); font-style:italic;">직접 확인</td></tr>
+          <tr><td>4 (짝수)</td><td>\(a = -1\)</td><td style="color:var(--gray); font-style:italic;">?</td><td style="color:var(--gray); font-style:italic;">직접 확인</td></tr>
+          <tr><td>3 (홀수)</td><td>\(a = -8\)</td><td style="color:var(--gray); font-style:italic;">?</td><td style="color:var(--gray); font-style:italic;">직접 확인</td></tr>
+        </table>
+      </div>
+
+      <!-- 질문 1 -->
+      <div class="problem-card fade-in" style="margin-bottom:12px;">
+        <div class="problem-header">
+          <span class="problem-num">질문 1</span>
+          <span class="problem-tag">그래프 해석</span>
+        </div>
+        <div class="problem-body">
+          <p class="problem-text">\(n=4,\; a=-1\)일 때 교점이 없는 이유를 그래프로 설명하시오.</p>
+          <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+          <div class="solution-box">
+            <div class="sol-step">
+              <div class="sol-label">그래프 관찰</div>
+              <p>\(y = x^4\)은 \(n\)이 짝수이므로 <strong>U자형(아래로 볼록)</strong> 곡선으로, 모든 \(x\)에 대해 \(y \geq 0\)이다.</p>
+              <p style="margin-top:6px;">\(y = -1\)은 \(x\)축 아래에 있는 수평선이다.</p>
+            </div>
+            <div class="sol-step">
+              <div class="sol-label">교점이 없는 이유</div>
+              <p>\(x^4 \geq 0\)이므로 \(x^4 = -1\)을 만족하는 실수 \(x\)는 존재하지 않는다.</p>
+              <p style="margin-top:6px;">\(y=x^4\)의 최솟값은 0이고, \(y=-1\)은 그보다 아래에 있으므로 두 그래프는 절대 만나지 않는다.</p>
+            </div>
+            <div style="background:var(--light-blue); border-radius:6px; padding:10px 14px; margin-top:8px; font-size:13px; color:var(--blue);">
+              💡 교과서 표에서 "\(n\)이 짝수, \(a &lt; 0\)이면 실수인 근이 없다"는 것의 그래프적 의미가 바로 이것이다.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 질문 2 -->
+      <div class="problem-card fade-in">
+        <div class="problem-header">
+          <span class="problem-num">질문 2</span>
+          <span class="problem-tag">그래프 해석</span>
+        </div>
+        <div class="problem-body">
+          <p class="problem-text">\(n=3,\; a=-8\)의 교점이 항상 1개인 것은 어떤 그래프 특성 때문인가?</p>
+          <button class="solution-toggle" onclick="toggleSol(this)">▶ 풀이 보기</button>
+          <div class="solution-box">
+            <div class="sol-step">
+              <div class="sol-label">그래프 관찰</div>
+              <p>\(y = x^3\)은 \(n\)이 홀수이므로 <strong>원점 대칭(점대칭)</strong> 곡선이다.</p>
+              <p style="margin-top:6px;">\(x\)가 \(-\infty \to +\infty\)로 갈 때 \(y\)도 \(-\infty \to +\infty\)로 <strong>단조증가</strong>한다.</p>
+            </div>
+            <div class="sol-step">
+              <div class="sol-label">교점이 항상 1개인 이유</div>
+              <p>단조증가하는 연속함수는 모든 수평선 \(y = a\)와 <strong>정확히 1번</strong> 만난다.</p>
+              <p style="margin-top:6px;">\(x^3 = -8\)의 실수 해는 \(x = -2\) 단 하나.</p>
+            </div>
+            <div class="sol-step">
+              <div class="sol-label">짝수 차수와의 비교</div>
+              <p>\(y = x^2\)은 U자 대칭 → \(a &gt; 0\): 교점 2개, \(a = 0\): 1개, \(a &lt; 0\): 0개.</p>
+              <p style="margin-top:6px;"><strong>홀수 차수</strong> 함수는 y축 대칭이 없고 점대칭만 있으므로 수평선과 항상 정확히 1개 교점.</p>
+            </div>
+            <div style="background:var(--light-blue); border-radius:6px; padding:10px 14px; margin-top:8px; font-size:13px; color:var(--blue);">
+              💡 "단조성 + 연속성"의 조합이 교점 1개를 보장한다. 이는 중간값 정리(IVT)와 연결되는 개념이기도 하다.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 활동 2: 대칭과 ToK -->
+    <div class="tok-box fade-in" style="margin-bottom:14px;">
+      <div class="tok-title">🌐 탐구 활동 2 — 수학의 대칭 vs 자연의 대칭</div>
+      <p class="tok-question">"수학은 왜 이 패턴을 예외 없이 따르는가? 자연에서 대칭이 깨지는 사례와 비교할 때, 수학의 대칭은 더 신뢰할 수 있는가?"</p>
+
+      <div class="two-col" style="margin-top:14px;">
+        <!-- 수학 -->
+        <div class="concept-box" style="margin:0;">
+          <div class="concept-box-title">수학의 대칭 — 정의에서 오는 필연</div>
+          <p style="font-size:13px; line-height:1.8; color:var(--gray);">
+            \((-x)^n = x^n\) (\(n\)이 짝수)은 실험으로 확인하는 것이 아니라,<br>
+            <strong style="color:var(--ink);">음수×음수=양수</strong>라는 곱셈의 정의로부터 논리적으로 따라온다.<br><br>
+            공리 → 논리 → 결론의 사슬.<br>
+            전제가 참이면 결론은 <em>반드시</em> 참.<br>
+            반례는 원리상 불가능하다.
+          </p>
+        </div>
+        <!-- 물리 -->
+        <div class="concept-box red" style="margin:0;">
+          <div class="concept-box-title">자연의 대칭 — 관찰에서 오는 패턴</div>
+          <p style="font-size:13px; line-height:1.8; color:var(--gray);">
+            실험으로 확인된 패턴.<br>
+            더 정밀한 실험에서 <em>깨질 수 있다.</em><br><br>
+            <strong style="color:var(--ink);">CP 대칭 붕괴 (1964, Cronin &amp; Fitch):</strong><br>
+            물질·반물질 완전 대칭 예측 → 중성 케이온 붕괴에서 비대칭 발견. 노벨상 수상.<br><br>
+            <strong style="color:var(--ink);">패리티(P) 붕괴 (1957, Wu 실험):</strong><br>
+            약한 핵력은 좌우 대칭이라 예상 → 전자가 한 방향으로만 방출.
+          </p>
+        </div>
+      </div>
+
+      <div style="margin-top:14px; overflow-x:auto;">
+        <table class="key-table" style="font-size:13px;">
+          <tr>
+            <th>항목</th>
+            <th>수학의 대칭</th>
+            <th>자연의 대칭</th>
+          </tr>
+          <tr>
+            <td>근거</td>
+            <td>공리 + 논리적 연역</td>
+            <td>실험 + 귀납적 일반화</td>
+          </tr>
+          <tr>
+            <td>반례 가능성</td>
+            <td><strong>없음</strong> (정의상 불가)</td>
+            <td>언제든 가능</td>
+          </tr>
+          <tr>
+            <td>깨지는 방식</td>
+            <td>공리를 바꾸면 다른 수학이 됨<br><span style="font-size:11px; color:var(--gray);">예: 비유클리드 기하학</span></td>
+            <td>더 정밀한 실험으로 이론 수정</td>
+          </tr>
+          <tr>
+            <td>신뢰의 종류</td>
+            <td><strong>논리적 확실성</strong></td>
+            <td>경험적 개연성</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <!-- ToK 핵심 논지 -->
+    <div class="concept-box gold fade-in">
+      <div class="concept-box-title">💡 ToK 핵심 논지</div>
+      <p style="font-size:14px; line-height:1.9; margin-bottom:14px;">
+        수학이 예외 없이 대칭을 따르는 것은, 수학이 현실을 <em>묘사</em>하는 언어가 아니라 현실과 무관하게 <strong>자기 완결적인 논리 체계</strong>이기 때문이다.
+      </p>
+      <div style="background:rgba(184,134,11,0.07); border-radius:6px; padding:12px 16px; margin-bottom:12px; font-style:italic; font-size:14px; color:#5a4a00; line-height:1.8;">
+        "수학은 우리가 무엇에 대해 말하는지 모르고, 우리가 말하는 것이 참인지도 모른다."<br>
+        <span style="font-size:12px; font-style:normal;">— Bertrand Russell</span>
+      </div>
+      <p style="font-size:13px; color:var(--gray); line-height:1.85; margin-bottom:6px;">
+        역설적으로, <strong style="color:var(--ink);">수학이 물리학보다 더 확실한 이유는 수학이 현실에 덜 관심을 갖기 때문</strong>일 수 있다.
+      </p>
+
+      <div class="divider" style="margin:14px 0;"></div>
+
+      <div class="tok-title">🎓 ToK 에세이 연결 질문</div>
+      <div class="two-col" style="margin-top:10px;">
+        <div style="background:rgba(184,134,11,0.07); border-radius:6px; padding:12px 14px; font-size:13px; color:#5a4a00; line-height:1.75;">
+          <strong>질문 1</strong><br>
+          수학의 확실성은 강점인가, 아니면 현실 세계로부터의 도피인가?
+        </div>
+        <div style="background:rgba(184,134,11,0.07); border-radius:6px; padding:12px 14px; font-size:13px; color:#5a4a00; line-height:1.75;">
+          <strong>질문 2</strong><br>
+          "답이 없다"는 것을 증명하는 것 — 이것도 수학적 지식인가?<br>
+          <span style="font-size:11px; color:#8a7000;">(m+n=30 불가능 증명처럼)</span>
+        </div>
+        <div style="background:rgba(184,134,11,0.07); border-radius:6px; padding:12px 14px; font-size:13px; color:#5a4a00; line-height:1.75;">
+          <strong>질문 3</strong><br>
+          \(a^0=1\)로 <em>정의</em>하는 것처럼, 수학의 진리는 인간의 선택인가?
+        </div>
+        <div style="background:rgba(184,134,11,0.07); border-radius:6px; padding:12px 14px; font-size:13px; color:#5a4a00; line-height:1.75;">
+          <strong>질문 4</strong><br>
+          물리학의 대칭 붕괴는 틀린 것인가, 아니면 더 깊은 진실로 나아가는 과정인가?
+        </div>
+      </div>
+    </div>
+
+    <!-- 활동 3: 수업 토론 설계 -->
+    <div class="tok-box fade-in" style="margin-top:18px;">
+      <div class="tok-title">🗣️ 수업 토론 설계 — 두 팀으로</div>
+      <div class="two-col" style="margin-top:12px;">
+        <div style="background:var(--light-blue); border:1px solid rgba(26,58,92,0.18); border-radius:8px; padding:14px 18px;">
+          <p style="font-size:12px; font-weight:700; color:var(--blue); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:8px;">팀 A — 수학은 발명</p>
+          <p style="font-size:13px; color:var(--ink); line-height:1.8;">"실수 범위는 인간이 선택한 것. 정의를 바꾸면 표 자체가 달라진다."<br><br>
+          근거: 복소수를 허용하면 \(-1\)의 제곱근도 존재한다. 비유클리드 기하학에서는 평행선 공리를 바꾼다.</p>
+        </div>
+        <div style="background:var(--light-red); border:1px solid rgba(192,57,43,0.18); border-radius:8px; padding:14px 18px;">
+          <p style="font-size:12px; font-weight:700; color:var(--red); letter-spacing:0.06em; text-transform:uppercase; margin-bottom:8px;">팀 B — 수학은 발견</p>
+          <p style="font-size:13px; color:var(--ink); line-height:1.8;">"짝수 제곱 함수의 대칭은 인간과 무관하게 존재한다. 우리는 그것을 읽을 뿐이다."<br><br>
+          근거: 어떤 문명이 독립적으로 수학을 발전시켜도 \(\pi\)의 값은 같다. 소수의 분포는 발명되지 않았다.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- ===== SUMMARY ===== -->
 <section id="summary">
   <div class="container">
@@ -877,7 +1177,8 @@
 
     <div style="margin-top:36px; padding:22px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.1); border-radius:8px;">
       <div class="tok-title" style="color:#f0c060; font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:10px;">🎓 Final ToK Question</div>
-      <p style="color:rgba(255,255,255,0.72); font-style:italic; font-size:15px; line-height:1.85;">지수와 로그는 서로의 역함수 관계이다. 수학에서 "역"이라는 개념은 — 덧셈↔뺄셈, 곱셈↔나눗셈, 지수↔로그 — 어디까지 적용될 수 있을까? 이 구조적 대칭은 수학이 발명된 것이 아니라 발견된 것임을 시사하는가?</p>
+      <p style="color:rgba(255,255,255,0.72); font-style:italic; font-size:15px; line-height:1.85; margin-bottom:14px;">지수와 로그는 서로의 역함수 관계이다. 수학에서 "역"이라는 개념은 — 덧셈↔뺄셈, 곱셈↔나눗셈, 지수↔로그 — 어디까지 적용될 수 있을까? 이 구조적 대칭은 수학이 발명된 것이 아니라 발견된 것임을 시사하는가?</p>
+      <p style="color:rgba(255,255,255,0.5); font-size:13px; line-height:1.8;">이 단원에서 우리는 <em>m+n=30이 자연수 집합으로 불가능하다</em>는 것을 증명했다. 물리학이라면 "아마 없을 것"이라 말하겠지만, 수학은 "절대로 없다"고 증명할 수 있다. 이 차이가 두 지식 영역의 본질적 차이인가? — <a href="#tok-activity" style="color:#f0c060;">ToK 활동 섹션으로 돌아가기</a></p>
     </div>
   </div>
 </section>
